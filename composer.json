@@ -1,0 +1,26 @@
+{
+  "name": "libeo/lbo_backend_filters",
+  "type": "typo3-cms-extension",
+  "description": "",
+  "authors": [
+    {
+      "name": "Pierre Boivin",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "typo3/cms-core": "^10.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Libeo\\LboBackendFilters\\": "Classes"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {}
+  },
+  "replace": {
+    "libeo/lbo_backend_filters": "self.version",
+    "typo3-ter/lbo_backend_filters": "self.version"
+  }
+}
