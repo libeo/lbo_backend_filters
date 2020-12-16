@@ -5,7 +5,7 @@
   "authors": [
     {
       "name": "Pierre Boivin",
-      "role": "Developer"
+      "email": "pierre.boivin@libeo.com"
     }
   ],
   "require": {
@@ -15,12 +15,5 @@
     "psr-4": {
       "Libeo\\LboBackendFilters\\": "Classes"
     }
-  },
-  "autoload-dev": {
-    "psr-4": {}
-  },
-  "replace": {
-    "libeo/lbo_backend_filters": "self.version",
-    "typo3-ter/lbo_backend_filters": "self.version"
   }
 }
