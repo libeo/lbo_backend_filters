@@ -9,7 +9,7 @@
 .. _start:
 
 =============================================================
-lbo_glossaire
+lbo_backend_filters
 =============================================================
 
 :Version:
@@ -19,10 +19,10 @@ lbo_glossaire
    en
 
 :Authors:
-   Octavio Jr Cim
+   Pierre Boivin
 
 :Email:
-  ocim@libeo.com
+  pierre.boivin@libeo.com
 
 :License:
    This extension documentation is published under the
