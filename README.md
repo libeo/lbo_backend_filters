@@ -1,4 +1,4 @@
 
-Add search filters on typo3 backend pages
+Add search filters for TYPO3 backend records
 
 [Documentation is here](Documentation/Introduction/Index.rst)

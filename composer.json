@@ -1,7 +1,8 @@
 {
   "name": "libeo/lbo_backend_filters",
   "type": "typo3-cms-extension",
-  "description": "",
+  "description": "Add search filters for TYPO3 backend records",
+  "license": "AGPL-3.0",
   "authors": [
     {
       "name": "Pierre Boivin",
@@ -14,6 +15,11 @@
   "autoload": {
     "psr-4": {
       "Libeo\\LboBackendFilters\\": "Classes"
+    }
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "lbo_backend_filters"
     }
   }
 }
