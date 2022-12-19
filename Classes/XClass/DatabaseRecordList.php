@@ -13,11 +13,11 @@ class DatabaseRecordList extends \TYPO3\CMS\Recordlist\RecordList\DatabaseRecord
     /**
      * @inheritdoc
      */
-    public function getSearchBox($formFields = true)
+    public function generateList() : string
     {
         $config = $this->getTSConfig();
 
-        $content = parent::getSearchBox($formFields);
+        $content = parent::generateList();
 
         if (!$config['filters.']) {
             return $content;
@@ -80,7 +80,7 @@ class DatabaseRecordList extends \TYPO3\CMS\Recordlist\RecordList\DatabaseRecord
         $newForm[] = '<div class="panel-body">';
         $newForm[] = '<div class="row">';
         $newForm[] = implode($formsElements);
-        $newForm[] = '<div class="col-xs-12">';
+        $newForm[] = '<div class="col-sm-4 col-xs-12">';
         $newForm[] = '<div class="form-control-wrap">';
         $newForm[] = '<input type="submit" name="customFilter" class="btn btn-default" value="Filtrer"> ';
         $newForm[] = '<input type="submit" name="clearFilter" class="btn btn-default" value="Réinitialiser">';
@@ -100,24 +100,15 @@ class DatabaseRecordList extends \TYPO3\CMS\Recordlist\RecordList\DatabaseRecord
     public function getQueryBuilder(
         string $table,
         int $pageId,
-        array $additionalConstraints = [],
-        array $fields = ['*']
+        array $additionalConstraints,
+        array $fields,
+        bool $addSorting,
+        int $firstResult,
+        int $maxResult
     ): QueryBuilder {
         $additionalConstraints = $this->getAdditionnalConstraints($table, $additionalConstraints);
 
-        return parent::getQueryBuilder($table, $pageId, $additionalConstraints, $fields);
-    }
-
-    /**
-     * @param string $table
-     * @param int $pageId
-     * @param array $constraints
-     */
-    public function setTotalItems(string $table, int $pageId, array $constraints)
-    {
-        $constraints = $this->getAdditionnalConstraints($table, $constraints);
-
-        parent::setTotalItems($table, $pageId, $constraints);
+        return parent::getQueryBuilder($table, $pageId, $additionalConstraints, $fields, $addSorting, $firstResult, $maxResult);
     }
 
     /**
