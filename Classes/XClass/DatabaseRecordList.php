@@ -35,6 +35,7 @@ class DatabaseRecordList extends \TYPO3\CMS\Recordlist\RecordList\DatabaseRecord
                 $fieldName = $options['fieldname'];
                 $fieldNameHtml = $tableName . '[' . $fieldName . ']';
                 $label = $options['label'] ?: trim($filterName, '.');
+                $newLine = (bool) $options['new-line'];
 
                 $submittedValues = GeneralUtility::_POST($tableName);
                 $fieldConfig = self::getTcaOfFieldConfig($tableName, $fieldName);
@@ -72,6 +73,9 @@ class DatabaseRecordList extends \TYPO3\CMS\Recordlist\RecordList\DatabaseRecord
                     $classSize = 'col-sm-3';
                 }
 
+                if (!empty($newLine)) {
+                    $formsElements[] = '<div class="w-100 mt-2"></div>';
+                }
                 $formsElements[] = '<div class="' . $classSize . ' col-xs-12"><label for="' . $fieldNameHtml . '">' . $label . '</label><div class="form-control-clearable">' . $formField . '</div></div>';
             }
         }
@@ -80,8 +84,8 @@ class DatabaseRecordList extends \TYPO3\CMS\Recordlist\RecordList\DatabaseRecord
         $newForm[] = '<div class="panel-body">';
         $newForm[] = '<div class="row">';
         $newForm[] = implode($formsElements);
-        $newForm[] = '<div class="col-sm-4 col-xs-12">';
-        $newForm[] = '<div class="form-control-wrap">';
+        $newForm[] = '<div class="col-sm-2 col-xs-12 align-self-end">';
+        $newForm[] = '<div class="form-control-wrap d-flex justify-content-between">';
         $newForm[] = '<input type="submit" name="customFilter" class="btn btn-default" value="Filtrer"> ';
         $newForm[] = '<input type="submit" name="clearFilter" class="btn btn-default" value="Réinitialiser">';
         $newForm[] = '</div>';

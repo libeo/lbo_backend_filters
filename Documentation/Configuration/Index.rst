@@ -21,6 +21,7 @@ Install extension
                     size = <small | medium | large>
                     label = <filter label>
                     fieldname = <column name on table>
+                    new-line = <0 | 1>
                 }
             }
         }
@@ -40,6 +41,7 @@ lbo_backend_filters {
                 size = medium
                 label = Name
                 fieldname = name
+                new-line = 1
             }
         }
     }
