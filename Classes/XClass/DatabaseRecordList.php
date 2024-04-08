@@ -50,7 +50,7 @@ class DatabaseRecordList extends \TYPO3\CMS\Recordlist\RecordList\DatabaseRecord
                         if ($item[1] === '-1') {
                             continue;
                         }
-                        if ($submittedValues[$fieldName] && intval($submittedValues[$fieldName]) === intval($item[1])) {
+                        if (isset($submittedValues[$fieldName]) && intval($submittedValues[$fieldName]) === intval($item[1])) {
                             $selected = 'selected';
                         }
                         $formField .= '<option value="' . $item[1] . '" ' . $selected . '>' . $item[0] . '</option>';
@@ -170,7 +170,7 @@ class DatabaseRecordList extends \TYPO3\CMS\Recordlist\RecordList\DatabaseRecord
                                 "'%" . $queryBuilder->escapeLikeWildcards($value) . "%'"
                             );
                         } elseif ($fieldConfig['type'] === 'select') {
-                            if ($value == '-1' || $value == '0' || $value == '') {
+                            if ($value == '-1' || $value == '') {
                                 continue;
                             }
                             $additionalConstraints[] = $queryBuilder->expr()->eq(
