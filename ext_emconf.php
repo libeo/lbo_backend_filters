@@ -7,17 +7,11 @@ $EM_CONF[$_EXTKEY] = array(
     'author' => ['Pierre Boivin'],
     'author_email' => 'pierre.boivin@libeo.com',
     'author_company' => 'Libéo',
-    'priority' => '',
     'state' => 'stable',
-    'uploadfolder' => '0',
-    'createDirs' => '',
-    'modify_tables' => '',
-    'clearCacheOnLoad' => 0,
-    'lockType' => '',
-    'version' => '1.1.0',
+    'version' => '12.0.0',
     'constraints' => array(
         'depends' => array(
-            'typo3' => '11.5.0-11.5.99',
+            'typo3' => '12.4.0-12.4.99',
         ),
         'conflicts' => array(
         ),

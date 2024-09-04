@@ -8,7 +8,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class DatabaseRecordList extends \TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList
+class DatabaseRecordList extends \TYPO3\CMS\Backend\RecordList\DatabaseRecordList
 {
     /**
      * @inheritdoc
@@ -42,18 +42,18 @@ class DatabaseRecordList extends \TYPO3\CMS\Recordlist\RecordList\DatabaseRecord
                 if ($fieldConfig['type'] === 'input') {
                     $formField = '<input type="text" class="form-control" name="' . $fieldNameHtml . '" value="' . $submittedValues[$fieldName] . '">';
                 } elseif ($fieldConfig['type'] === 'select') {
-                    $formField = '<select class="form-control" name="' . $fieldNameHtml . '">';
+                    $formField = '<select class="form-control form-select" name="' . $fieldNameHtml . '">';
 
                     $formField .= '<option value="-1"></option>';
                     foreach ($processedTca['columns'][$fieldName]['config']['items'] as $item) {
                         $selected = '';
-                        if ($item[1] === '-1') {
+                        if ($item['value'] === -1) {
                             continue;
                         }
-                        if (isset($submittedValues[$fieldName]) && intval($submittedValues[$fieldName]) === intval($item[1])) {
+                        if (isset($submittedValues[$fieldName]) && intval($submittedValues[$fieldName]) === intval($item['value'])) {
                             $selected = 'selected';
                         }
-                        $formField .= '<option value="' . $item[1] . '" ' . $selected . '>' . $item[0] . '</option>';
+                        $formField .= '<option value="' . $item['value'] . '" ' . $selected . '>' . $item['label'] . '</option>';
                     }
 
                     $formField .= '</select>';
@@ -103,16 +103,13 @@ class DatabaseRecordList extends \TYPO3\CMS\Recordlist\RecordList\DatabaseRecord
      */
     public function getQueryBuilder(
         string $table,
-        int $pageId,
-        array $additionalConstraints,
-        array $fields,
-        bool $addSorting,
-        int $firstResult,
-        int $maxResult
+        array $fields = ['*'],
+        bool $addSorting = true,
+        int $firstResult = 0,
+        int $maxResult = 0
     ): QueryBuilder {
-        $additionalConstraints = $this->getAdditionnalConstraints($table, $additionalConstraints);
-
-        return parent::getQueryBuilder($table, $pageId, $additionalConstraints, $fields, $addSorting, $firstResult, $maxResult);
+        return parent::getQueryBuilder($table, $fields, $addSorting, $firstResult, $maxResult)
+            ->andWhere(...$this->getAdditionnalConstraints($table));
     }
 
     /**
@@ -149,8 +146,9 @@ class DatabaseRecordList extends \TYPO3\CMS\Recordlist\RecordList\DatabaseRecord
      * @param array $additionalConstraints
      * @return array
      */
-    private function getAdditionnalConstraints(string $table, array $additionalConstraints): array
+    private function getAdditionnalConstraints(string $table): array
     {
+        $additionalConstraints = [];
         if (GeneralUtility::_POST('customFilter')) {
             $config = $this->getTSConfig();
             foreach ($config['filters.'] as $tableName => $fieldsFilter) {
